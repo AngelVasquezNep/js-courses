@@ -1,0 +1,14 @@
+{
+  "name": "curso-de-backend-con-node-js",
+  "version": "0.1.0",
+  "description": "Curso de backend con NodeJS",
+  "main": "index.js",
+  "repository": "https://github.com/AngelVasquezNep/js-courses/tree/main/curso-de-backend-con-node-js",
+  "keywords": [
+    "nodejs",
+    "javaScript",
+    "platzi"
+  ],
+  "author": "Angelito <angel.vasquez.unam@gmail.com> (https://github.com/AngelVasquezNep)",
+  "license": "MIT"
+}
