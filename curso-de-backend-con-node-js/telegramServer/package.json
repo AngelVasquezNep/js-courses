@@ -1,0 +1,17 @@
+{
+  "name": "telegram-server",
+  "version": "0.1.0",
+  "description": "A telegram chat, but better :P",
+  "main": "server.js",
+  "repository": "https://github.com/AngelVasquezNep/js-courses/tree/main/curso-de-backend-con-node-js/telegramServer",
+  "keywords": [
+    "nodejs",
+    "chat",
+    "telegram",
+    "server",
+    "javaScript",
+    "platzi"
+  ],
+  "author": "Angelito <angel.vasquez.unam@gmail.com> (https://github.com/AngelVasquezNep)",
+  "license": "MIT"
+}
