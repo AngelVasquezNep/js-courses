@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "A telegram chat, but better :P",
   "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "repository": "https://github.com/AngelVasquezNep/js-courses/tree/main/curso-de-backend-con-node-js/telegramServer",
   "keywords": [
     "nodejs",
@@ -15,6 +18,10 @@
   "author": "Angelito <angel.vasquez.unam@gmail.com> (https://github.com/AngelVasquezNep)",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
