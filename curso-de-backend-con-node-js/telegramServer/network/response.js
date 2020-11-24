@@ -10,7 +10,7 @@ exports.success = (req, res, body, config) => {
 exports.error = (req, res, errorMessage, config) => {
     const { status, error } = config || {};
 
-    console.error(`[response error][${new Date()}]`);
+    console.error(`[response error][${new Date()}]`.magenta);
     console.error(error);
 
     res.status(status || 500).json({
