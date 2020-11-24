@@ -1,6 +1,6 @@
 const express = require('express');
-
-const response = require('../../network/response')
+const response = require('../../network/response');
+const controller = require('./controller');
 
 const router = express.Router();
 
@@ -15,10 +15,16 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    // response.success(req, res, 'Todo se creó ok', { status: 201 });
-    response.error(req, res, '', {
-        error: 'Error en la configuración'
-    });
+    const { body } = req;
+
+    controller
+        .addMessage(body.user, body.message)
+        .then((fullMessage) =>
+            response.success(req, res, fullMessage, { status: 201 })
+        )
+        .catch(({ errorMessage, error, status }) =>
+            response.error(req, res, errorMessage, { status, error })
+        );
 });
 
 module.exports = router;
