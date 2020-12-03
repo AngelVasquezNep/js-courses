@@ -22,19 +22,33 @@ function addMessage(user, message) {
             date: new Date()
         };
 
-        store.add(fullMessage);
-
-        resolve(fullMessage);
+        store
+            .add(fullMessage)
+            .then((newMessage) => resolve(newMessage))
+            .catch((error) =>
+                reject({
+                    error,
+                    status: 500
+                })
+            );
     });
 }
 
 function getMessages() {
     return new Promise((resolve, reject) => {
-        resolve(store.list());
+        store
+            .list()
+            .then((list) => resolve(list))
+            .catch((error) =>
+                reject({
+                    error,
+                    status: 500
+                })
+            );
     });
 }
 
 module.exports = {
     addMessage,
-    getMessages,
+    getMessages
 };

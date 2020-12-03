@@ -1,11 +1,16 @@
-const list = [];
+const MongoLib = require('../../lib/mongo');
+
+const mongoDb = new MongoLib();
+const collection = 'messages';
 
 function addMessage(message) {
-    list.push(message);
+    return mongoDb
+        .create(collection, message)
+        .then((insertedId) => ({ ...message, id: insertedId }));
 }
 
-function getMessages() {
-    return list;
+function getMessages(query) {
+    return mongoDb.getAll(collection, query);
 }
 
 module.exports = {
