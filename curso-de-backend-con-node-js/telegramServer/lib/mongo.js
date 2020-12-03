@@ -1,74 +1,28 @@
-const { MongoClient, ObjectId } = require('mongodb');
+const db = require('mongoose');
 const config = require('../utils/config');
+
+const Logger = require('../utils/logger');
 
 const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);
 const DB_NAME = encodeURIComponent(config.dbName);
+const CLUSTERS = "cluster0-shard-00-00.cohhe.mongodb.net:27017,cluster0-shard-00-01.cohhe.mongodb.net:27017,cluster0-shard-00-02.cohhe.mongodb.net:27017"
+const MONGO_OPTIONS = 'ssl=true&replicaSet=atlas-naxsv2-shard-0&authSource=admin&retryWrites=true&w=majority'
 
-const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${DB_NAME}?retryWrites=true&w=majority`;
+const MONGO_URI = `mongodb://${USER}:${PASSWORD}@${CLUSTERS}/${DB_NAME}?${MONGO_OPTIONS}`;
 
-class MongoLib {
-    constructor() {
-        this.client = new MongoClient(MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        this.dbName = DB_NAME;
-    }
+db.Promise = global.Promise;
 
-    connect() {
-        if (!MongoLib.connection) {
-            MongoLib.connection = new Promise((resolve, reject) => {
-                this.client.connect((err) => {
-                    if (err) {
-                        reject(err);
-                    }
+db.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then(() => {
+        Logger.db.info('connected', 'Success')
+    })
+    .catch((err) => {
+        Logger.db.error('connection error', err);
+        process.exit(1);
+    });
 
-                    resolve(this.client.db(this.dbName));
-                });
-            });
-        }
-
-        return MongoLib.connection;
-    }
-
-    getAll(collection, query) {
-        return this.connect().then((db) =>
-            db.collection(collection).find(query).toArray()
-        );
-    }
-
-    get(collection, id) {
-        return this.connect().then((db) =>
-            db.collection(collection).findOne({ _id: ObjectId(id) })
-        );
-    }
-
-    create(collection, data) {
-        return this.connect()
-            .then((db) => db.collection(collection).insertOne(data))
-            .then((result) => ({ ...data, id: result.insertedId }));
-    }
-
-    update(collection, id, data) {
-        return this.connect().then((db) => {
-            return db
-                .collection(collection)
-                .updateOne(
-                    { _id: ObjectId(id) },
-                    { $set: data },
-                    { upsert: true }
-                );
-        });
-    }
-
-    delete(collection, id) {
-        return this.connect()
-            .then((db) =>
-                db.collection(collection).deleteOne({ _id: ObjectId(id) })
-            )
-            .then(() => id);
-    }
-}
-
-module.exports = MongoLib;
+module.exports = db;
