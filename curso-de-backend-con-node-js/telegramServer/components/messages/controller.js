@@ -1,10 +1,10 @@
 const store = require('./store');
-const Logs = require('../../utils/logs');
+const Logger = require('../../utils/logger');
 
 function addMessage(user, message) {
     return new Promise((resolve, reject) => {
         if (!user || !message) {
-            Logs.controller.error(
+            Logger.controller.error(
                 'messages-addMessage',
                 'Without user or message'
             );
@@ -24,7 +24,12 @@ function addMessage(user, message) {
 
         store
             .add(fullMessage)
-            .then((newMessage) => resolve(newMessage))
+            .then((newMessage) =>
+                resolve({
+                    ...fullMessage,
+                    id: newMessage._id
+                })
+            )
             .catch((error) =>
                 reject({
                     error,
@@ -34,10 +39,10 @@ function addMessage(user, message) {
     });
 }
 
-function getMessages() {
+function getMessages(query) {
     return new Promise((resolve, reject) => {
         store
-            .list()
+            .list(query)
             .then((list) => resolve(list))
             .catch((error) =>
                 reject({

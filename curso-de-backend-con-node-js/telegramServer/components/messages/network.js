@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     controller
-        .getMessages()
+        .getMessages(req.query)
         .then((messages) => response.success(req, res, messages))
         .catch(({ errorMessage, error, status }) =>
             response.error(req, res, errorMessage, { status, error })

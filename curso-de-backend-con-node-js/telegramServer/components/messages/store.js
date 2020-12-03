@@ -1,15 +1,13 @@
-const MongoLib = require('../../lib/mongo');
-
-const mongoDb = new MongoLib();
-const collection = 'messages';
+const Model = require('./model');
 
 function addMessage(message) {
-    return mongoDb
-        .create(collection, message)
+    const newMessage = new Model(message);
+
+    return newMessage.save();
 }
 
 function getMessages(query) {
-    return mongoDb.getAll(collection, query);
+    return Model.find(query)
 }
 
 module.exports = {
