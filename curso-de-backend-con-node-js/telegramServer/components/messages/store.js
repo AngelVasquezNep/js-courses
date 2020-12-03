@@ -6,7 +6,6 @@ const collection = 'messages';
 function addMessage(message) {
     return mongoDb
         .create(collection, message)
-        .then((insertedId) => ({ ...message, id: insertedId }));
 }
 
 function getMessages(query) {
