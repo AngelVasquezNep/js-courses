@@ -10,8 +10,6 @@ const PORT = 8000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(router); // router ALWAYS goes to the end of "use" handles
-
 router(app)
 
 app.use('/app', express.static('public'));

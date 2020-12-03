@@ -1,3 +1,4 @@
+const store = require('./store');
 const Logs = require('../../utils/logs');
 
 function addMessage(user, message) {
@@ -21,11 +22,19 @@ function addMessage(user, message) {
             date: new Date()
         };
 
-        Logs.controller.info('message-addMessage', 'User created successfully');
+        store.add(fullMessage);
+
         resolve(fullMessage);
     });
 }
 
+function getMessages() {
+    return new Promise((resolve, reject) => {
+        resolve(store.list());
+    });
+}
+
 module.exports = {
-    addMessage
+    addMessage,
+    getMessages,
 };
