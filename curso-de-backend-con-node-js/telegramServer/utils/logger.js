@@ -1,6 +1,6 @@
 const colors = require('colors')
 
-class Logs {
+class Logger {
     constructor(type) {
         this.type = type;
     }
@@ -16,8 +16,11 @@ class Logs {
     }
 }
 
-const controller = new Logs('controller');
+const controller = new Logger('controller');
+const db = new Logger('DB');
 
 module.exports = {
-    controller
+    Logger,
+    controller,
+    db,
 };
