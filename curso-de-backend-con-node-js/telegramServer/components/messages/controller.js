@@ -24,12 +24,7 @@ function addMessage(user, message) {
 
         store
             .add(fullMessage)
-            .then((newMessage) =>
-                resolve({
-                    ...fullMessage,
-                    id: newMessage._id
-                })
-            )
+            .then((newMessage) => resolve(newMessage))
             .catch((error) =>
                 reject({
                     error,
@@ -53,7 +48,37 @@ function getMessages(query) {
     });
 }
 
+function updateMessage(messageId, newMessage) {
+    const { _id, date, ...restMessage } = newMessage;
+
+    return new Promise((resolve, reject) => {
+        if (!messageId || !restMessage.message) {
+            Logger.controller.error(
+                'messages-updateMessage',
+                'Missing data'
+            );
+
+            return reject({
+                errorMessage: 'Missing data',
+                error: 'Missing data',
+                status: 400
+            });
+        }
+
+        store
+            .update(messageId, restMessage)
+            .then((updatedMessage) => resolve(updatedMessage))
+            .catch((error) =>
+                reject({
+                    error,
+                    status: 500
+                })
+            );
+    });
+}
+
 module.exports = {
     addMessage,
-    getMessages
+    getMessages,
+    updateMessage
 };

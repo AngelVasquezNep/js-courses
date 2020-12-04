@@ -7,13 +7,19 @@ function addMessage(message) {
 }
 
 function getMessages(query) {
-    return Model.find(query)
+    return Model.find(query);
+}
+
+function updateMessage(messageId, newMessage) {
+    return Model.findOneAndUpdate({ _id: messageId }, newMessage, {
+        new: true
+    });
 }
 
 module.exports = {
     add: addMessage,
-    list: getMessages
+    list: getMessages,
     // get
-    // update
+    update: updateMessage
     // delete
 };
