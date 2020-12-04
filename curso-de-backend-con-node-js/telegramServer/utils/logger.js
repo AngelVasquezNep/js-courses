@@ -1,6 +1,10 @@
 const colors = require('colors')
 
 class Logger {
+    static log(message) {
+        console.info(`[${message}][${new Date()}]`.cyan);
+    }
+
     constructor(type) {
         this.type = type;
     }
