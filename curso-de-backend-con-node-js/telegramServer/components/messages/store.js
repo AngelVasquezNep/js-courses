@@ -16,10 +16,16 @@ function updateMessage(messageId, newMessage) {
     });
 }
 
+function deleteMessage(messageId) {
+    return Model.deleteOne({
+        _id: messageId
+    });
+}
+
 module.exports = {
     add: addMessage,
     list: getMessages,
     // get
-    update: updateMessage
-    // delete
+    update: updateMessage,
+    delete: deleteMessage
 };

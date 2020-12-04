@@ -53,10 +53,7 @@ function updateMessage(messageId, newMessage) {
 
     return new Promise((resolve, reject) => {
         if (!messageId || !restMessage.message) {
-            Logger.controller.error(
-                'messages-updateMessage',
-                'Missing data'
-            );
+            Logger.controller.error('messages-updateMessage', 'Missing data');
 
             return reject({
                 errorMessage: 'Missing data',
@@ -77,8 +74,33 @@ function updateMessage(messageId, newMessage) {
     });
 }
 
+function deleteMessage(messageId) {
+    return new Promise((resolve, reject) => {
+        if (!messageId) {
+            Logger.controller.error('messages-deleteMessage', 'Missing id');
+
+            return reject({
+                errorMessage: 'Missing id',
+                error: 'Missing id',
+                status: 400
+            });
+        }
+
+        store
+            .delete(messageId)
+            .then(() => resolve())
+            .catch((error) =>
+                reject({
+                    error,
+                    status: 500
+                })
+            );
+    });
+}
+
 module.exports = {
     addMessage,
     getMessages,
-    updateMessage
+    updateMessage,
+    deleteMessage
 };
