@@ -12,6 +12,7 @@ const MONGO_OPTIONS = 'ssl=true&replicaSet=atlas-naxsv2-shard-0&authSource=admin
 const MONGO_URI = `mongodb://${USER}:${PASSWORD}@${CLUSTERS}/${DB_NAME}?${MONGO_OPTIONS}`;
 
 db.Promise = global.Promise;
+db.set('useFindAndModify', false); // To avoid warning: https://mongoosejs.com/docs/deprecations.html#findandmodify
 
 db.connect(MONGO_URI, {
     useNewUrlParser: true,
