@@ -1,11 +1,11 @@
 const { Logger } = require('../../utils/logger');
 
-const logger = new Logger('request');
+const logger = new Logger('REQUEST');
 
 function requestsLogger(req, res, next) {
     const { method, originalUrl } = req;
 
-    logger.info(method, `[originalUrl] ${originalUrl}`);
+    logger.info('', `[${method}] ${originalUrl}`);
 
     next();
 }
