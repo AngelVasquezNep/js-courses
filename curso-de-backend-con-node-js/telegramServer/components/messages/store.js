@@ -7,7 +7,18 @@ function addMessage(message) {
 }
 
 function getMessages(query) {
-    return Model.find(query);
+    return new Promise((resolve, reject) => {
+        Model.find(query)
+            .populate('user')
+            .exec((error, populateData) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+
+                resolve(populateData);
+            })
+    });
 }
 
 function updateMessage(messageId, newMessage) {
