@@ -1,9 +1,9 @@
 const store = require('./store');
 const Logger = require('../../utils/logger');
 
-function addMessage(user, message) {
+function addMessage(chat, user, message) {
     return new Promise((resolve, reject) => {
-        if (!user || !message) {
+        if (!user || !message || !chat) {
             Logger.controller.error(
                 'messages-addMessage',
                 'Without user or message'
@@ -17,6 +17,7 @@ function addMessage(user, message) {
         }
 
         const fullMessage = {
+            chat,
             user,
             message,
             date: new Date()
