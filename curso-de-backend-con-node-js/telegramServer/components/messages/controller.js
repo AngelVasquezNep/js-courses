@@ -1,18 +1,19 @@
 const store = require('./store');
 const Logger = require('../../utils/logger');
+const { SAVED_FILES_URL } = require('./config');
 
-function addMessage(chat, user, message) {
+function addMessage({ chat, user, message, file }) {
     return new Promise((resolve, reject) => {
         if (!user || !message || !chat) {
             Logger.controller.error(
                 'messages-addMessage',
-                'Without user or message'
+                'Without user or message',
             );
 
             return reject({
                 errorMessage: 'Missing data',
                 error: 'Without user or message',
-                status: 400
+                status: 400,
             });
         }
 
@@ -20,7 +21,8 @@ function addMessage(chat, user, message) {
             chat,
             user,
             message,
-            date: new Date()
+            fileUrl: (file && `${SAVED_FILES_URL}/${file.filename}`) || null,
+            date: new Date(),
         };
 
         store
@@ -29,8 +31,8 @@ function addMessage(chat, user, message) {
             .catch((error) =>
                 reject({
                     error,
-                    status: 500
-                })
+                    status: 500,
+                }),
             );
     });
 }
@@ -43,8 +45,8 @@ function getMessages(query) {
             .catch((error) =>
                 reject({
                     error,
-                    status: 500
-                })
+                    status: 500,
+                }),
             );
     });
 }
@@ -59,7 +61,7 @@ function updateMessage(messageId, newMessage) {
             return reject({
                 errorMessage: 'Missing data',
                 error: 'Missing data',
-                status: 400
+                status: 400,
             });
         }
 
@@ -69,8 +71,8 @@ function updateMessage(messageId, newMessage) {
             .catch((error) =>
                 reject({
                     error,
-                    status: 500
-                })
+                    status: 500,
+                }),
             );
     });
 }
@@ -83,7 +85,7 @@ function deleteMessage(messageId) {
             return reject({
                 errorMessage: 'Missing id',
                 error: 'Missing id',
-                status: 400
+                status: 400,
             });
         }
 
@@ -93,8 +95,8 @@ function deleteMessage(messageId) {
             .catch((error) =>
                 reject({
                     error,
-                    status: 500
-                })
+                    status: 500,
+                }),
             );
     });
 }
@@ -103,5 +105,5 @@ module.exports = {
     addMessage,
     getMessages,
     updateMessage,
-    deleteMessage
+    deleteMessage,
 };

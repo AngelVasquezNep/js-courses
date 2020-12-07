@@ -17,6 +17,9 @@ const messagesSchema = new Schema({
         type: String,
         required: true
     },
+    fileUrl: {
+        type: String,
+    },
     date: {
         type: Date,
         required: true
