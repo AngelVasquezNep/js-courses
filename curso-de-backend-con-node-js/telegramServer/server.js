@@ -16,7 +16,7 @@ app.use(requestLogger)
 
 router(app)
 
-app.use('/app', express.static('public'));
+app.use(`/${config.publicFilesPath}`, express.static('public'));
 
 app.listen(PORT, () =>
     console.log(`> App is ready at http://localhost:${PORT}`)
