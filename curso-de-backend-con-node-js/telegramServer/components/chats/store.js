@@ -7,7 +7,6 @@ function addChat(chat) {
 }
 
 function getChats(query) {
-    console.log(query)
     return new Promise((resolve, reject) => {
         Model.find(query)
             .populate('users') // Model field

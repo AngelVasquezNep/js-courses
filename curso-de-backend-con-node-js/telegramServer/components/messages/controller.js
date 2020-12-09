@@ -2,6 +2,8 @@ const store = require('./store');
 const Logger = require('../../utils/logger');
 const { SAVED_FILES_URL } = require('./config');
 
+const { socket } = require('../../socket');
+
 function addMessage({ chat, user, message, file }) {
     return new Promise((resolve, reject) => {
         if (!user || !message || !chat) {
@@ -27,7 +29,10 @@ function addMessage({ chat, user, message, file }) {
 
         store
             .add(fullMessage)
-            .then((newMessage) => resolve(newMessage))
+            .then((newMessage) => {
+                socket.io.emit('message', fullMessage)
+                resolve(newMessage)
+            })
             .catch((error) =>
                 reject({
                     error,
