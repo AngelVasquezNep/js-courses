@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 const config = require('./utils/config');
 const app = express();
 
@@ -14,6 +15,7 @@ const router = require('./network/routes');
 
 const PORT = config.PORT;
 
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
