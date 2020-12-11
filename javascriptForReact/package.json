@@ -1,0 +1,15 @@
+{
+  "name": "javascript_for_react",
+  "version": "0.1.0",
+  "description": "Curso de Leonidas - JavaScript para React",
+  "scripts": {
+    "styled-components": "nodemon ./styled-components",
+    "template_literals": "nodemon ./template-literals"
+  },
+  "author": "Angelito <angel.vasquez.unam@gmail.com> (https://github.com/AngelVasquezNep)",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}
