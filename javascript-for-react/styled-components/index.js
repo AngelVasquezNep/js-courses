@@ -1,3 +1,5 @@
+import styled from './styled.js'
+
 function render(component, container) {
   container.innerHTML = component;
 }
@@ -12,14 +14,6 @@ const component = (strings, ...dynamicValues) => (props) => {
   return newContent.join("");
 };
 
-const styled = {
-  h1: (styles) => (content) => `
-    <h1 style="${styles}">
-      ${content}
-    </h1>
-  `,
-};
-
 const props = {
   name: "Angelito",
   message: "Hola",
@@ -27,7 +21,7 @@ const props = {
 
 const Title = component`--- ${"message"} --- ${"name"}`(props);
 
-const TitleStyled = styled.h1`
+const TitleStyled = styled.a`
   color: red;
   font-size: 2rem;
 `;
