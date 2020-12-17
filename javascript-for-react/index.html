@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      .flavor {
+        border: 1px solid rebeccapurple;
+        padding: 1rem;
+        transition: all 0.3s;
+        background-color: white;
+      }
+      .flavor::after {
+        content: attr(data-flavor);
+      }
+      .flavor:hover {
+        cursor: pointer;
+        background-color: rgba(102, 51, 151, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" class="container">
+      <button class="flavor" data-flavor="chocolate"></button>
+      <button class="flavor" data-flavor="orange"></button>
+      <button class="flavor" data-flavor="vanilla"></button>
+      <button class="flavor" data-flavor="lemon"></button>
+
+      <p id="selected">Choose one flavor</p>
+    </div>
+
+    <script>
+      window.container.addEventListener("click", (event) => {
+        const flavor = event.target.dataset["flavor"];
+
+        window.selected.textContent = `Selected flavor: ${flavor}`;
+      });
+    </script>
+  </body>
+</html>
