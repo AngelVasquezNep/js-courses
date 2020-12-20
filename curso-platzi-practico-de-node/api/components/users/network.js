@@ -4,6 +4,21 @@ const Controller = require('./index');
 
 const router = express.Router();
 
+/**
+ * GET /users
+ * @summary Get all users
+ * @tags Users - Application's users
+ * @return {User[]} 200 - Success response - application/json
+ * @example response - 200 - Success response example
+ * [
+ *   {
+ *     "id": "3ac72e11-de02-47e6-a4ed-e90fde907887",
+ *     "name": "Some user",
+ *     "createdAt": "2020-12-19T01:30:24.994Z",
+ *     "updatedAt": "2020-12-19T01:30:24.994Z"
+ *   }
+ * ]
+ */
 router.get('/', (req, res) => {
     Controller.list()
         .then((list) => response.success(req, res, list, 200))
@@ -13,6 +28,13 @@ router.get('/', (req, res) => {
         });
 });
 
+/**
+ * POST /users
+ * @summary Create a user
+ * @param {CreateUserPayload} request.body.required - Users' info - application/json
+ * @tags Users
+ * @return {User} 200 - Success response - application/json
+ */
 router.post('/', (req, res) => {
     Controller.create(req.body)
         .then((user) => response.success(req, res, user, 201))
@@ -22,6 +44,13 @@ router.post('/', (req, res) => {
         });
 });
 
+/**
+ * GET /users/{id}
+ * @summary Get a user
+ * @param {string} id.path - User id
+ * @tags Users
+ * @return {User} 200 - Created user - application/json
+ */
 router.get('/:id', (req, res) => {
     const { id } = req.params;
 
@@ -39,7 +68,15 @@ router.get('/:id', (req, res) => {
         });
 });
 
-router.post('/:id', (req, res) => {
+/**
+ * PATCH /users/{id}
+ * @summary Update a user
+ * @param {string} id.path - User id
+ * @param {CreateUserPayload} request.body.required - Users' info - application/json
+ * @tags Users
+ * @return {User} 200 - Updated user - application/json
+ */
+router.patch('/:id', (req, res) => {
     const { id } = req.params;
 
     Controller.update(id, req.body)
@@ -52,6 +89,13 @@ router.post('/:id', (req, res) => {
         });
 });
 
+/**
+ * DELETE /users/{id}
+ * @summary Delete a user
+ * @param {string} id.path - User id
+ * @tags Users
+ * @return {?string} 204
+ */
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
 
