@@ -5,7 +5,7 @@ const Controller = require('./index');
 const router = express.Router();
 
 /**
- * GET /users
+ * GET /api/users
  * @summary Get all users
  * @tags Users - Application's users
  * @return {User[]} 200 - Success response - application/json
@@ -20,7 +20,7 @@ const router = express.Router();
  * ]
  */
 router.get('/', (req, res) => {
-    Controller.list()
+    Controller.list(req.query)
         .then((list) => response.success(req, res, list, 200))
         .catch((error) => {
             console.error('[GET ALL][users]', error);
@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
 });
 
 /**
- * POST /users
+ * POST /api/users
  * @summary Create a user
  * @param {CreateUserPayload} request.body.required - Users' info - application/json
  * @tags Users
@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
 });
 
 /**
- * GET /users/{id}
+ * GET /api/users/{id}
  * @summary Get a user
  * @param {string} id.path - User id
  * @tags Users
@@ -69,7 +69,7 @@ router.get('/:id', (req, res) => {
 });
 
 /**
- * PATCH /users/{id}
+ * PATCH /api/users/{id}
  * @summary Update a user
  * @param {string} id.path - User id
  * @param {CreateUserPayload} request.body.required - Users' info - application/json
@@ -90,7 +90,7 @@ router.patch('/:id', (req, res) => {
 });
 
 /**
- * DELETE /users/{id}
+ * DELETE /api/users/{id}
  * @summary Delete a user
  * @param {string} id.path - User id
  * @tags Users
