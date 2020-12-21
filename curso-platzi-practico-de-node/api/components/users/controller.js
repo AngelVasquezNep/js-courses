@@ -1,3 +1,5 @@
+const auth = require('../auth');
+
 const TABLE = 'users';
 
 function Controller(injectedStore) {
@@ -11,11 +13,22 @@ function Controller(injectedStore) {
         return store.get(TABLE, id);
     }
 
-    function create(data) {
-        return store.create(TABLE, data);
+    async function create(data) {
+        const { username, password, ...rest } = data;
+
+        const user = await store.create(TABLE, { username, ...rest });
+
+        await auth.create({ userId: user.id, username, password });
+
+        return user;
     }
 
-    function update(id, data) {
+    async function update(id, data) {
+        const { username, password } = data;
+        if (password || username) {
+            await auth.update({ userId: id, username, password });
+        }
+
         return store.update(TABLE, id, data);
     }
 
