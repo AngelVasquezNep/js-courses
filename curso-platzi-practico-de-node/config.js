@@ -11,6 +11,9 @@ const config = {
         HOST,
         API_BASE_URL,
     },
+    auth: {
+        SECRET_KEY: process.env.SECRET_KEY || 'YOUR_SCRET_KEY',
+    },
     swagger: {
         swaggerUIPath,
         apiDocsPath,
