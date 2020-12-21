@@ -1,11 +1,30 @@
 const uuidv4 = require('../lib/uuidv4');
 
 const db = {
-    users: [{ id: '1', name: 'Angelito', createdAt: new Date(), updatedAt: new Date() }],
+    auth: [],
+    users: [
+        {
+            id: '1',
+            name: 'Angelito',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        },
+    ],
 };
 
-async function list(table, query) {
-    return db[table];
+async function list(table, query = {}) {
+    const keys = Object.keys(query);
+    const data = db[table];
+
+    if (keys.length === 0) {
+        return data;
+    }
+
+    const filteredData = data.filter((d) =>
+        keys.every((key) => d[key] === query[key]),
+    );
+
+    return filteredData;
 }
 
 async function get(table, id) {
