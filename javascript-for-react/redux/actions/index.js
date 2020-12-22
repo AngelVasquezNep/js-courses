@@ -1,1 +1,3 @@
-export const NEW_MESSAGE = 'NEW_MESSAGE'
+export const CHANGE_MESSAGE = "CHANGE_MESSAGE";
+export const ADD_NEW_MESSAGE = "ADD_NEW_MESSAGE";
+export const DELETE_MESSAGE = "DELETE_MESSAGE";
