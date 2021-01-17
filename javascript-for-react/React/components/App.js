@@ -4,10 +4,6 @@ import { Component, createElement } from "../lib/react/index.js";
 // import User from "./User.js";
 // import UserStyled from "./UserStyled.js";
 
-const element = createElement("h1", { class: "title" }, "Hola mundo");
-
-console.log(element)
-
 class App extends Component {
   render() {
     // const Ash = new User({ avatar: "./images/ash.jpg", name: "Ash" }).render();
@@ -16,11 +12,15 @@ class App extends Component {
     //   name: "Ash",
     // }).render();
 
-    return `
-      <div class="app">
-        <h1>Hola mundo</h1>
-      </div>
-    `;
+    const element = createElement("h1", {
+        class: "title",
+        children: [
+          createElement('p', {}, 'children'),
+          createElement('p', {}, 'children'),
+        ]
+      }, "Hola mundo");
+
+    return element;
   }
 }
 // ${new Wrapper({
