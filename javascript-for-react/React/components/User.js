@@ -1,18 +1,20 @@
-import { Component } from "../lib/react/src/React.js";
+import { Component, createElement } from "../lib/react/index.js";
 
 class User extends Component {
   render() {
     const { name, avatar } = this.props;
 
-    return `
-      <div class="user">
-        <div class="avatar">
-          <img src="${avatar}" alt="${name}"
-        </div>
+    return createElement("div", {
+      class: "user",
+      children: [
+        createElement("div", {
+          class: "avatar",
+          children: createElement("img", { src: avatar }),
+        }),
 
-        <h2>${name}</h2>
-      </div>
-    `;
+        createElement("h2", null, name),
+      ],
+    });
   }
 }
 

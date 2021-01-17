@@ -1,12 +1,11 @@
-import { Component } from "../lib/react/src/React.js";
+import { Component, createElement } from "../lib/react/index.js";
 
 class Wrapper extends Component {
   render() {
-    return `
-      <div class="wrapper">
-        ${this.props.children}
-      </div>
-    `;
+    return createElement("div", {
+      class: "wrapper",
+      children: this.props.children,
+    });
   }
 }
 

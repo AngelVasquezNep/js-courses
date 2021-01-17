@@ -19,7 +19,7 @@ function setAttributes(element, attribute, value) {
   return element;
 }
 
-export function createElement(type, props = {}, content) {
+export function createElement(type, props, content) {
   // Create DOM element
   const element = document.createElement(type);
 
@@ -29,9 +29,11 @@ export function createElement(type, props = {}, content) {
   }
 
   // Set properties
-  Object.keys(props).forEach((attribute) => {
-    setAttributes(element, attribute, props[attribute]);
-  });
+  if (props) {
+    Object.keys(props).forEach((attribute) => {
+      setAttributes(element, attribute, props[attribute]);
+    });
+  }
 
   return element;
 }
