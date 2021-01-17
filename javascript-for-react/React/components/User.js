@@ -1,4 +1,4 @@
-import { Component } from "../lib/react/index.js";
+import { Component } from "../lib/react/src/React.js";
 
 class User extends Component {
   render() {

@@ -1,7 +1,3 @@
-class Component {
-  constructor(props = {}) {
-    this.props = props;
-  }
-}
+export { Component } from "./src/React.js";
 
-export { Component };
+export { createElement, createElement as jsx } from "./src/ReactElement.js";
