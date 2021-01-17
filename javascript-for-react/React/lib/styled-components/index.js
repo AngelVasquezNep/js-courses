@@ -11,7 +11,6 @@ const TAGS = [
   "button",
   "strong",
   "small",
-  "img",
   "picture",
 ];
 
@@ -19,10 +18,8 @@ const component = (tag) => (styles) => (content) =>
   `<${tag} style="${styles}">${content}</${tag}>`;
 
 const styled = {
-  h1: (styles) => (content) => `
-    <h1 style="${styles}">
-      ${content}
-    </h1>
+  img: (styles) => (content) => `
+    <img style="${styles}" ${content} />
   `,
 };
 
