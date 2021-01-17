@@ -8,12 +8,24 @@ $searchForm.addEventListener("submit", (event) => {
 
   const formData = new FormData($searchForm);
 
-  const title = formData.get("title");
+  const query = formData.get("query");
 
-  render(filterByTitle(movies, title));
+  render(searchMovie(movies, query));
 });
+
+function searchMovie(movies, query) {
+  if (!isNaN(Number(query))) {
+    const movie = findMovie(movies, Number(query));
+
+    return movie ? [movie] : [];
+  }
+
+  return filterByTitle(movies, query);
+}
 
 const filterByTitle = (movies, title) =>
   movies.filter((movie) =>
     movie.title.toLowerCase().includes(title.toLocaleLowerCase())
   );
+
+const findMovie = (movies, id) => movies.find((movie) => movie.id === id);

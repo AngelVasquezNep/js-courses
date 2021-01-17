@@ -6,7 +6,7 @@ function renderElement(movie) {
 
 function buildElement({ id, title, poster_path, vote_average, recommended }) {
   const template = `
-    <article class="movie ${recommended ? 'recommended' : ''}">
+    <article class="movie ${recommended ? "recommended" : ""}">
       <img class="movie-poster" src="//image.tmdb.org/t/p/w220_and_h330_face/${poster_path}" alt="">
       <p class="movie-title">${title}</p>
       <p class="movie-id">${id}</p>
@@ -19,6 +19,12 @@ function buildElement({ id, title, poster_path, vote_average, recommended }) {
   movie.innerHTML = template;
 
   return movie.firstElementChild;
+}
+
+export function renderMovieListFromMap(mapMovies, moviesId) {
+  const movies = moviesId.map((movieId) => mapMovies[movieId]);
+
+  renderMovieList(movies);
 }
 
 function cleanMovieList() {
