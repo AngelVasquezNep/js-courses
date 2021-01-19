@@ -31,14 +31,14 @@ async function get(table, id) {
     return list(table).then((list) => list.find((item) => item.id === id));
 }
 
-async function create(table, data) {
+async function create(table, data, { useCustomId = false } = {}) {
     const createdAt = new Date();
 
     const element = {
         ...data,
         createdAt,
         updatedAt: createdAt,
-        id: uuidv4(),
+        id: useCustomId ? data.id : uuidv4(),
     };
 
     db[table].push(element);
@@ -65,7 +65,7 @@ async function update(table, id, data) {
         return newElement;
     }
 
-    throw new Error(`Element ${id} at [${table}] was Not found`);
+    throw new Error(`Element ${id} at [${table}] was not found`);
 }
 
 async function remove(table, id) {

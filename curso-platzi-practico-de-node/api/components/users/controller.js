@@ -24,12 +24,12 @@ function Controller(injectedStore) {
     }
 
     async function update(id, data) {
-        const { username, password } = data;
+        const { username, password, ...rest } = data;
         if (password || username) {
             await auth.update({ userId: id, username, password });
         }
 
-        return store.update(TABLE, id, data);
+        return store.update(TABLE, id, { username, ...rest });
     }
 
     function remove(id) {

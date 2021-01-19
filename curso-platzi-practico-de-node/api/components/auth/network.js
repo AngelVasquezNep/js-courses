@@ -8,7 +8,6 @@ const router = express.Router();
  * POST /api/auth/login
  * @summary Login auth user
  * @tags Auth
- * @param {string} id.path - User id
  * @param {CreateUserAuthPayload} request.body.required - Users' info - application/json
  * @return {Auth} 200 - Success response - application/json
  * @example response - 200 - Success response example

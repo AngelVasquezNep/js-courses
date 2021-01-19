@@ -4,27 +4,51 @@ const TABLE = 'auth';
 function Controller(injectedStore) {
     const store = injectedStore || require('../../../store/db');
 
-    function create(data) {
-        const { userId, username, passwrod } = data;
+    async function create(data) {
+        const { userId, username, password } = data;
 
-        return store.create(TABLE, { userId, username, passwrod });
+        const hashedPassword = await Auth.hashPassword(password);
+
+        return store.create(
+            TABLE,
+            {
+                username,
+                id: userId,
+                password: hashedPassword,
+            },
+            { useCustomId: true },
+        );
     }
 
-    function update(data) {
-        const { userId, username, passwrod } = data;
+    async function update(data) {
+        const { userId, username, password } = data;
 
-        return store.update(TABLE, userId, { username, passwrod });
+        const hashedPassword = await Auth.hashPassword(password);
+
+        return store.update(TABLE, userId, {
+            username,
+            password: hashedPassword,
+        });
     }
 
     async function login(data) {
-        const { username, passwrod } = data;
+        const { username, password } = data;
 
         const [user] = await store.list(TABLE, { username });
 
-        if (user && user.passwrod === passwrod) {
-            return {
-                token: Auth.sign(user),
-            };
+        if (user) {
+            const passwordIsRight = await Auth.comparePassword(
+                password,
+                user.password,
+            );
+
+            if (passwordIsRight) {
+                const { password, ...restUser } = user;
+
+                return {
+                    token: Auth.sign(restUser),
+                };
+            }
         }
 
         return {
