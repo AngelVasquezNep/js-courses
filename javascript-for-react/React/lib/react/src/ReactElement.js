@@ -9,11 +9,24 @@ function renderChildren(element, children) {
   return render(children, element);
 }
 
+function setEvent(element, event, callback) {
+  return element.addEventListener(event, callback);
+}
+
 function setAttributes(element, attribute, value) {
+  // Children
   if (attribute === "children") {
     return renderChildren(element, value);
   }
 
+  // Events
+  if (attribute.startsWith("on")) {
+    const event = attribute.replace("on", "").toLowerCase();
+
+    return setEvent(element, event, value);
+  }
+
+  // All attributes
   element.setAttribute(attribute, value);
 
   return element;
