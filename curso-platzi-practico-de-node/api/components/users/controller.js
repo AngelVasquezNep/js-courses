@@ -25,8 +25,19 @@ function Controller(injectedStore) {
 
     async function update(id, data) {
         const { username, password, ...rest } = data;
-        if (password || username) {
-            await auth.update({ userId: id, username, password });
+
+        const authUpdateInfo = {}
+
+        if (username) {
+            authUpdateInfo.username = username
+        }
+
+        if (password) {
+            authUpdateInfo.password = password
+        }
+
+        if (Object.keys(authUpdateInfo).length > 0) {
+            await auth.update({ ...authUpdateInfo, userId: id });
         }
 
         return store.update(TABLE, id, { username, ...rest });
