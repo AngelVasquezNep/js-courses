@@ -32,7 +32,7 @@ async function get(table, id) {
 }
 
 async function create(table, data, { useCustomId = false } = {}) {
-    const createdAt = new Date();
+    const createdAt = new Date().getTime();
 
     const element = {
         ...data,
@@ -57,7 +57,7 @@ async function update(table, id, data) {
             ...data,
             id,
             createdAt: element.createdAt,
-            updatedAt: new Date(),
+            updatedAt: new Date().getTime(),
         };
 
         db[table][elementIndex] = newElement;
