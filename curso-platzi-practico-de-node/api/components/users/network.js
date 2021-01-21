@@ -1,4 +1,5 @@
 const express = require('express');
+const secure = require('./secure');
 const response = require('../../../network/response');
 const Controller = require('./index');
 
@@ -33,13 +34,29 @@ router.get('/', (req, res) => {
  * @summary Create a user
  * @param {CreateUserPayload} request.body.required - Users' info - application/json
  * @tags Users
- * @return {User} 200 - Success response - application/json
+ * @return {User} 201 - Success response - application/json
  */
 router.post('/', (req, res) => {
     Controller.create(req.body)
         .then((user) => response.success(req, res, user, 201))
         .catch((error) => {
             console.error('[POST][users]', error);
+            response.error(req, res);
+        });
+});
+
+/**
+ * PUT /api/users/{id}
+ * @summary Create a user
+ * @param {CreateUserPayload} request.body.required - Users' info - application/json
+ * @tags Users
+ * @return {User} 200 - Success response - application/json
+ */
+router.put('/:id', secure('update'), (req, res) => {
+    Controller.update(req.body)
+        .then((user) => response.success(req, res, user, 200))
+        .catch((error) => {
+            console.error('[PUT][users]', error);
             response.error(req, res);
         });
 });
