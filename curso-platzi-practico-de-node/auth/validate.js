@@ -34,7 +34,11 @@ function decodeHeader(req) {
 const owner = (req, owner) => {
     return new Promise((resolve, reject) => {
         const decoded = decodeHeader(req);
-        resolve(decoded);
+        if (decoded.id === owner) {
+            return resolve(null, decoded);
+        }
+
+        resolve('Forbidden')
     });
 };
 

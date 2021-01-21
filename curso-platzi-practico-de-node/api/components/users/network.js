@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
  * @return {User} 200 - Success response - application/json
  */
 router.put('/:id', secure('update'), (req, res) => {
-    Controller.update(req.body)
+    Controller.update(req.params.id, req.body)
         .then((user) => response.success(req, res, user, 200))
         .catch((error) => {
             console.error('[PUT][users]', error);

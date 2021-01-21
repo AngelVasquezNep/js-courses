@@ -13,11 +13,18 @@ function checkAuth(action) {
 
                 await Auth.validate
                     .owner(req, owner)
-                    .then((decoded) => {
-                        next()
+                    .then((error, decoded) => {
+                        if (error) {
+                            return response.error(req, res, 'Forbidden', 403);
+                        }
+
+                        next();
                     })
                     .catch((error) => {
-                        console.error('[middalware][user secure update]', error);
+                        console.error(
+                            '[middalware][user secure update]',
+                            error,
+                        );
                         response.error(req, res);
                     });
                 break;
