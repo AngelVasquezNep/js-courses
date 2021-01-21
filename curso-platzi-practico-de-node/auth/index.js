@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const config = require('../config');
 
+const validate = require('./validate') 
+
 function sign(user) {
     return jwt.sign(user, config.auth.SECRET_KEY);
 }
@@ -18,4 +20,5 @@ module.exports = {
     sign,
     hashPassword,
     comparePassword,
+    validate,
 };
