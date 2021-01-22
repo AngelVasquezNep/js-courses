@@ -1,3 +1,5 @@
+const response = require('../network/response');
+
 const messageErrors = {
     400: 'Bad Request',
     401: 'Unauthorized',
@@ -16,7 +18,21 @@ function error(code, message) {
     return error;
 }
 
+function catchControllerError(req, res, label = '[METHOD][entity]') {
+    return function (error) {
+        console.error(label, error);
+
+        if (error.statusCode) {
+            response.error(req, res, error.message, error.statusCode);
+            return;
+        }
+
+        response.error(req, res);
+    };
+}
+
 module.exports = {
     messageErrors,
     error,
+    catchControllerError,
 };

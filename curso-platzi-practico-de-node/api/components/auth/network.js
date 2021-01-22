@@ -1,6 +1,7 @@
 const express = require('express');
 const response = require('../../../network/response');
 const Controller = require('./index');
+const { catchControllerError } = require('../../../utils/errors');
 
 const router = express.Router();
 
@@ -17,18 +18,8 @@ const router = express.Router();
  */
 router.post('/login', (req, res) => {
     Controller.login(req.body)
-        .then((auth) => {
-            if (auth.token) {
-                response.success(req, res, auth, 200)
-                return;
-            }
-
-            response.error(req, res, auth.error, 400)
-        })
-        .catch((error) => {
-            console.error('[POST][Login auth]', error);
-            response.error(req, res);
-        });
+        .then((auth) => response.success(req, res, auth, 200))
+        .catch(catchControllerError(req, res, '[POST][Login auth]'));
 });
 
 module.exports = router;

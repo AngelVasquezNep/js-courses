@@ -29,7 +29,15 @@ async function list(table, query = {}) {
 }
 
 async function get(table, id) {
-    return list(table).then((list) => list.find((item) => item.id === id));
+    const element = list(table).then((list) =>
+        list.find((item) => item.id === id),
+    );
+
+    if (!element) {
+        throw utils.errors.error(404, `Element ${id} was not found`);
+    }
+
+    return element
 }
 
 async function create(table, data, { useCustomId = false } = {}) {

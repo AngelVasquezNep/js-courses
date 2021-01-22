@@ -1,4 +1,6 @@
 const Auth = require('../../../auth');
+const utils = require('../../../utils');
+
 const TABLE = 'auth';
 
 function Controller(injectedStore) {
@@ -49,11 +51,11 @@ function Controller(injectedStore) {
                     token: Auth.sign(restUser),
                 };
             }
+
+            throw utils.errors.error(400, 'Wrong username or password');
         }
 
-        return {
-            error: 'Invalid data',
-        };
+        throw utils.errors.error(404, `User ${username} was not found`);
     }
 
     return {
