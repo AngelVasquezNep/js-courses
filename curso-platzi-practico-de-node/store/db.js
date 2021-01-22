@@ -1,3 +1,4 @@
+const utils = require('../utils');
 const uuidv4 = require('../lib/uuidv4');
 
 const db = {
@@ -65,7 +66,7 @@ async function update(table, id, data) {
         return newElement;
     }
 
-    throw new Error(`Element ${id} at [${table}] was not found`);
+    throw utils.errors.error(404, `Element ${id} was not found`);
 }
 
 async function remove(table, id) {

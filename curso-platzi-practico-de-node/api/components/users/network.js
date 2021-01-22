@@ -57,6 +57,12 @@ router.put('/:id', secure('update'), (req, res) => {
         .then((user) => response.success(req, res, user, 200))
         .catch((error) => {
             console.error('[PUT][users]', error);
+
+            if (error.statusCode) {
+                response.error(req, res, error.message, error.statusCode);
+                return;
+            }
+
             response.error(req, res);
         });
 });

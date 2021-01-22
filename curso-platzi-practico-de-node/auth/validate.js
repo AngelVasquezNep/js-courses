@@ -1,14 +1,15 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
+const utils = require('../utils');
+
 function getToken(auth) {
     if (!auth) {
-        throw new Error('Without token');
+        throw utils.errors.error(400, 'Without token');
     }
 
-
     if (auth.indexOf('Bearer ') === -1) {
-        throw new Error('Invalid token format');
+        throw utils.errors.error(400, 'Invalid token format');
     }
 
     const token = auth.replace('Bearer ', '');
@@ -32,14 +33,13 @@ function decodeHeader(req) {
 }
 
 const owner = (req, owner) => {
-    return new Promise((resolve, reject) => {
-        const decoded = decodeHeader(req);
-        if (decoded.id === owner) {
-            return resolve(null, decoded);
-        }
+    const decoded = decodeHeader(req);
 
-        resolve('Forbidden')
-    });
+    if (decoded.id === owner) {
+        return decoded;
+    }
+
+    throw utils.errors.error(403);
 };
 
 module.exports = {

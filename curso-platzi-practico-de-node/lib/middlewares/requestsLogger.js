@@ -1,11 +1,9 @@
+const utils = require("../../utils");
+
 function requestsLogger(req, res, next) {
     const { method, originalUrl } = req;
 
-    const date = new Intl.DateTimeFormat('en-US', {
-        dateStyle: 'full',
-        timeStyle: 'long',
-        timeZone: 'UTC'
-    }).format(new Date());
+    const date = utils.time.UTCFormatedDate();
 
     console.info(`[${method}][${date}] ${originalUrl}`);
 

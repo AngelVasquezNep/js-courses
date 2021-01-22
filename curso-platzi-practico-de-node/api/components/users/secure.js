@@ -1,4 +1,3 @@
-const response = require('../../../network/response');
 const Auth = require('../../../auth');
 
 /**
@@ -6,27 +5,13 @@ const Auth = require('../../../auth');
  */
 
 function checkAuth(action) {
-    async function middleware(req, res, next) {
+    function middleware(req, res, next) {
         switch (action) {
             case 'update':
                 const owner = req.params.id;
+                const decodedOwner = Auth.validate.owner(req, owner);
 
-                await Auth.validate
-                    .owner(req, owner)
-                    .then((error, decoded) => {
-                        if (error) {
-                            return response.error(req, res, 'Forbidden', 403);
-                        }
-
-                        next();
-                    })
-                    .catch((error) => {
-                        console.error(
-                            '[middalware][user secure update]',
-                            error,
-                        );
-                        response.error(req, res);
-                    });
+                next();
                 break;
 
             default:
