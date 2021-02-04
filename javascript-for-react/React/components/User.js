@@ -9,6 +9,18 @@ class User extends Component {
     };
   }
 
+  componentWillMount() {
+    console.log("A punto de montarse")
+  }
+
+  componentDidMount() {
+    console.log("Se montó")
+  }
+
+  componentDidUpdate() {
+    console.log("Se actualizó")
+  }
+
   handleClick = () => {
     this.setState({ count: this.state.count + 1 })
   };
