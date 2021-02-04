@@ -3,7 +3,13 @@ function render(element, container) {
     return container.append(element);
   }
 
-  const childElement = element.render();
+  element.update = function (newChild) {
+    container.replaceChild(newChild, childElement);
+    childElement = newChild;
+  };
+
+  let childElement = element.render();
+
   container.append(childElement);
 }
 
