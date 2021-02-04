@@ -4,21 +4,19 @@ class Component {
     this.state = state;
   }
 
-  update(newChild) {
-    return newChild
-  }
+  update() {}
 
-  #updater(){
-    this.update(this.render())
+  #updater() {
+    this.update(this.render());
   }
 
   setState(newState) {
     this.state = {
       ...this.state,
-      ...newState
-    }
+      ...newState,
+    };
 
-    this.#updater()
+    this.#updater();
   }
 }
 
