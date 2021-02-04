@@ -1,3 +1,5 @@
+import { createElement } from "../react/index.js";
+
 const TAGS = [
   "h1",
   "h2",
@@ -12,16 +14,20 @@ const TAGS = [
   "strong",
   "small",
   "picture",
+  "img",
 ];
 
-const component = (tag) => (styles) => (content) =>
-  `<${tag} style="${styles}">${content}</${tag}>`;
+const styled = {};
 
-const styled = {
-  img: (styles) => (content) => `
-    <img style="${styles}" ${content} />
-  `,
-};
+const component = (tag) => (styles) => (props, content) =>
+  createElement(
+    tag,
+    {
+      style: styles,
+      ...props,
+    },
+    content
+  );
 
 TAGS.forEach((tag) => (styled[tag] = component(tag)));
 

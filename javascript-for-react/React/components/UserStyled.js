@@ -1,4 +1,4 @@
-import { Component } from "../lib/react/src/React.js";
+import { Component, createElement } from "../lib/react/index.js";
 import styled from "../lib/styled-components/index.js";
 
 const UserStyled = styled.div`
@@ -29,16 +29,30 @@ const UserImageStyled = styled.img`
 `;
 
 class User extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      mode: 'light'
+    }
+  }
+
+  componentDidMount() {
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    console.log(media)
+  }
+
   render() {
     const { name, avatar } = this.props;
 
-    return `
-      ${UserStyled(`
-        ${UserImageStyled(`src="${avatar}"`)}
-
-        <h2>${name}</h2>
-      `)}
-    `;
+    return UserStyled({
+      children: [
+        UserImageStyled({
+          src: avatar
+        }),
+        createElement('h2', null, name)
+      ]
+    })
   }
 }
 
