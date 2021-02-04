@@ -8,7 +8,15 @@ class Component {
 
   #updater() {
     this.update(this.render());
+
+    this.componentDidUpdate();
   }
+
+  componentWillMount() {}
+
+  componentDidMount() {}
+
+  componentDidUpdate() {}
 
   setState(newState) {
     this.state = {
@@ -17,6 +25,11 @@ class Component {
     };
 
     this.#updater();
+  }
+
+  buildComponent() {
+    this.componentWillMount();
+    return this.render();
   }
 }
 

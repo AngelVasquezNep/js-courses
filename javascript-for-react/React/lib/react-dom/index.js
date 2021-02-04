@@ -8,9 +8,11 @@ function render(element, container) {
     childElement = newChild;
   };
 
-  let childElement = element.render();
+  let childElement = element.buildComponent();
 
   container.append(childElement);
+
+  element.componentDidMount()
 }
 
 export { render };
