@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      my-element {
+        --my-element-primary-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <my-element title="hola" content="El content">
+      <p slot="title">Hola</p>
+    </my-element>
+
+    <my-element is-rounded title="hola" content="El content">
+      <span slot="title">Hola</span>
+    </my-element>
+
+    <div class="card">
+      <my-element is-rounded title="hola" content="El content"></my-element>
+    </div>
+    <button id="btn">hola</button>
+    <script src="./js/my-element.js" type="module"></script>
+    <!-- <script src="./js/up-down-element.js" type="module"></script> -->
+  </body>
+</html>
