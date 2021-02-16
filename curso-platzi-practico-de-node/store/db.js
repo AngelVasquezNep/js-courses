@@ -1,3 +1,5 @@
+const mysql = require('./mysql');
+
 const utils = require('../utils');
 const uuidv4 = require('../lib/uuidv4');
 
@@ -14,18 +16,7 @@ const db = {
 };
 
 async function list(table, query = {}) {
-    const keys = Object.keys(query);
-    const data = db[table];
-
-    if (keys.length === 0) {
-        return data;
-    }
-
-    const filteredData = data.filter((d) =>
-        keys.every((key) => d[key] === query[key]),
-    );
-
-    return filteredData;
+    return mysql.list(table);
 }
 
 async function get(table, id) {
@@ -37,7 +28,7 @@ async function get(table, id) {
         throw utils.errors.error(404, `Element ${id} was not found`);
     }
 
-    return element
+    return element;
 }
 
 async function create(table, data, { useCustomId = false } = {}) {

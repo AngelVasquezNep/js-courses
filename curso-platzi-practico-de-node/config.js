@@ -12,7 +12,7 @@ const config = {
         API_BASE_URL,
     },
     auth: {
-        SECRET_KEY: process.env.SECRET_KEY || 'YOUR_SCRET_KEY',
+        SECRET_KEY: process.env.AUTH_SECRET_KEY || 'YOUR_SCRET_KEY',
     },
     swagger: {
         swaggerUIPath,
@@ -21,6 +21,14 @@ const config = {
             ui: `${API_BASE_URL}${swaggerUIPath}`,
             json: `${API_BASE_URL}${apiDocsPath}`,
         },
+    },
+    db: {
+        mysql: {
+            host: process.env.MYSQL_HOST || '',
+            user: process.env.MYSQL_USER || '',
+            password: process.env.MYSQL_PASSWORD || '',
+            database: process.env.MYSQL_DATABASE || '',
+        }
     },
 };
 
