@@ -33,9 +33,14 @@ function handleConnection() {
 
 handleConnection();
 
-function list(table) {
+function list(table, query) {
+    const dbQuery =
+        query && Object.keys(query).length > 0
+            ? [`SELECT * FROM ${table} WHERE ?`, query]
+            : [`SELECT * FROM ${table}`];
+
     return new Promise((resolve, reject) =>
-        connection.query(`SELECT * FROM ${table}`, (error, data) => {
+        connection.query(...dbQuery, (error, data) => {
             if (error) {
                 return reject(error);
             }
@@ -45,6 +50,69 @@ function list(table) {
     );
 }
 
+function get(table, id) {
+    return new Promise((resolve, reject) =>
+        connection.query(
+            `SELECT * FROM ${table} WHERE id="${id}"`,
+            (error, data) => {
+                if (error) {
+                    return reject(error);
+                }
+                const [element] = data;
+
+                resolve(element || null);
+            },
+        ),
+    );
+}
+
+function create(table, data) {
+    return new Promise((resolve, reject) =>
+        connection.query(`INSERT INTO ${table} SET ?`, data, (error) => {
+            if (error) {
+                return reject(error);
+            }
+
+            resolve(data);
+        }),
+    );
+}
+
+function update(table, id, data) {
+    return new Promise((resolve, reject) =>
+        connection.query(
+            `UPDATE ${table} SET ? WHERE id="${id}"`,
+            data,
+            (error) => {
+                if (error) {
+                    return reject(error);
+                }
+
+                get(table, id).then(resolve).catch(reject);
+            },
+        ),
+    );
+}
+
+function remove(table, id) {
+    return new Promise((resolve, reject) =>
+        connection.query(
+            `DELETE FROM ${table} WHERE id="${id}"`,
+            (error, results) => {
+                if (error) {
+                    return reject(error);
+                }
+
+                resolve(results);
+            },
+        ),
+    );
+}
+
 module.exports = {
     list,
+    get,
+    create,
+    update,
+    remove,
 };
