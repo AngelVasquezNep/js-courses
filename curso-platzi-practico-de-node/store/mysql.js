@@ -33,11 +33,20 @@ function handleConnection() {
 
 handleConnection();
 
-function list(table, query) {
+function list(table, query, join) {
+    let joinQuery = "";
+
+    if (join) {
+        const [joinTable] = Object.keys(join);
+        const column = join[joinTable];
+
+        joinQuery = `JOIN ${joinTable} ON ${table}.${column} = ${joinTable}.id`
+    }
+
     const dbQuery =
         query && Object.keys(query).length > 0
-            ? [`SELECT * FROM ${table} WHERE ?`, query]
-            : [`SELECT * FROM ${table}`];
+            ? [`SELECT * FROM ${table} ${joinQuery} WHERE ?`, query]
+            : [`SELECT * FROM ${table} ${joinQuery}`];
 
     return new Promise((resolve, reject) =>
         connection.query(...dbQuery, (error, data) => {

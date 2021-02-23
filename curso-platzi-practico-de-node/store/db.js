@@ -3,8 +3,8 @@ const mysql = require('./mysql');
 const utils = require('../utils');
 const uuidv4 = require('../lib/uuidv4');
 
-async function list(table, query) {
-    return mysql.list(table, query);
+async function list(table, query, join) {
+    return mysql.list(table, query, join);
 }
 
 async function get(table, id) {
