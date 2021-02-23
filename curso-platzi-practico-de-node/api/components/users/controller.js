@@ -52,6 +52,10 @@ function Controller(injectedStore) {
         return usersFollow.create(id, target);
     }
 
+    async function following(id) {
+        return usersFollow.following(TABLE, id);
+    }
+
     return {
         list,
         get,
@@ -59,6 +63,7 @@ function Controller(injectedStore) {
         update,
         remove,
         follow,
+        following,
     };
 }
 

@@ -118,4 +118,21 @@ router.post('/follow/:target_id', secure('follow'), (req, res) => {
         .catch(catchControllerError(req, res, `[POST ${target_id}][users/follow]`));
 });
 
+/**
+ * GET /api/users/{user_id}/following
+ * @summary Update a user
+ * @param {string} user_id.path - User id
+ * @tags Users
+ * @return {User} 201 - Updated user - application/json
+ */
+router.get('/:user_id/following', secure('follow'), (req, res) => {
+    const { user_id } = req.params;
+
+    Controller.following(user_id)
+        .then((data) => response.success(req, res, data, 200))
+        .catch(
+            catchControllerError(req, res, `[POST ${user_id}][users/following]`),
+        );
+});
+
 module.exports = router;

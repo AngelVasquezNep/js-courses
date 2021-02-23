@@ -7,8 +7,17 @@ function Controller(injectedStore) {
         return store.create(TABLE, { user_from, user_to });
     }
 
+    async function following(user_table, user_from) {
+        const join = {
+            [user_table]: 'user_to', // { users: 'user_to' }
+        };
+
+        return store.list(TABLE, { user_from }, join);
+    }
+
     return {
         create,
+        following,
     };
 }
 
