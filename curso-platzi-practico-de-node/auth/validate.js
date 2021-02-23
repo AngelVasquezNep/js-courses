@@ -42,6 +42,11 @@ const owner = (req, owner) => {
     throw utils.errors.error(403);
 };
 
+const logged = (req) => {
+    return decodeHeader(req);
+};
+
 module.exports = {
     owner,
+    logged,
 };
