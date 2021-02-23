@@ -76,7 +76,7 @@ router.get('/:id', (req, res) => {
  * @tags Users
  * @return {User} 200 - Updated user - application/json
  */
-router.patch('/:id', (req, res) => {
+router.patch('/:id', secure('update'), (req, res) => {
     const { id } = req.params;
 
     Controller.update(id, req.body)
@@ -97,6 +97,25 @@ router.delete('/:id', (req, res) => {
     Controller.remove(id)
         .then(() => response.success(req, res, null, 204))
         .catch(catchControllerError(req, res, `[DELETED ${id}][users]`));
+});
+
+/**
+ * FOLLOW
+ */
+
+/**
+ * POST /api/users/follow/{target_id}
+ * @summary Update a user
+ * @param {string} target_id.path - User id
+ * @tags Users
+ * @return {User} 201 - Updated user - application/json
+ */
+router.post('/follow/:target_id', secure('follow'), (req, res) => {
+    const { target_id } = req.params;
+
+    Controller.follow(req.user.id, target_id)
+        .then((data) => response.success(req, res, data, 201))
+        .catch(catchControllerError(req, res, `[POST ${target_id}][users/follow]`));
 });
 
 module.exports = router;

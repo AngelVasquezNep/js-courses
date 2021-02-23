@@ -1,4 +1,5 @@
 const auth = require('../auth');
+const usersFollow = require('../users_follow')
 
 const TABLE = 'users';
 
@@ -47,12 +48,17 @@ function Controller(injectedStore) {
         return store.remove(TABLE, id);
     }
 
+    async function follow(id, target) {
+        return usersFollow.create(id, target);
+    }
+
     return {
         list,
         get,
         create,
         update,
         remove,
+        follow,
     };
 }
 
