@@ -28,7 +28,15 @@ const config = {
             user: process.env.MYSQL_USER || '',
             password: process.env.MYSQL_PASSWORD || '',
             database: process.env.MYSQL_DATABASE || '',
-        }
+        },
+    },
+    services: {
+        mysql: {
+            PORT: process.env.SERVICE_MYSQL_PORT || 3001,
+            BASE_URL:
+                process.env.SERVICE_MYSQL_BASE_URL ||
+                `${HOST}:${process.env.SERVICE_MYSQL_PORT || 3001}`,
+        },
     },
 };
 

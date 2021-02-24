@@ -4,7 +4,8 @@
   "description": "A backend to post application",
   "main": "api/index.js",
   "scripts": {
-    "dev": "env-cmd -f ./.env nodemon ./api"
+    "dev": "env-cmd -f ./.env nodemon ./api",
+    "dev:mysql": "env-cmd -f ./.env nodemon ./services/mysql"
   },
   "author": "Angelito <angel.vasquez.unam@gmail.com> (https://github.com/AngelVasquezNep)",
   "license": "MIT",
