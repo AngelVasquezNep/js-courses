@@ -42,7 +42,7 @@ router.post('/', (req, res) => {
 
 /**
  * PUT /api/users/{id}
- * @summary Create a user
+ * @summary Update whole user
  * @param {CreateUserPayload} request.body.required - Users' info - application/json
  * @tags Users
  * @return {User} 200 - Success response - application/json
@@ -72,7 +72,7 @@ router.get('/:id', (req, res) => {
  * PATCH /api/users/{id}
  * @summary Update a user
  * @param {string} id.path - User id
- * @param {CreateUserPayload} request.body.required - Users' info - application/json
+ * @param {CreateUserPayload} request.body - Users' info - application/json
  * @tags Users
  * @return {User} 200 - Updated user - application/json
  */

@@ -14,6 +14,12 @@ function checkAuth(action) {
                 next();
                 break;
 
+            case 'logged':
+                Auth.validate.logged(req);
+
+                next();
+                break;
+
             case 'follow':
                 Auth.validate.logged(req);
 
