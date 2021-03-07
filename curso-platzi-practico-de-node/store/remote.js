@@ -1,33 +1,29 @@
-const request = require('request');
+const axios = require('axios');
+const { errors } = require('../utils');
 
-function req({ method, url, body, query, join }) {
-    return new Promise((resolve, reject) => {
-        request(
-            {
-                method,
-                headers: {
-                    'content-type': 'application/json',
-                },
-                url,
-                body,
-            },
-            (error, res, body) => {
-                if (error) {
-                    console.error(`Error with external DB | ${url}`, error);
-                    return reject(error.message);
-                }
+function req({ method, url, body, query }) {
+    return axios({
+        method,
+        headers: {
+            'content-type': 'application/json',
+        },
+        url,
+        body,
+        params: query,
+    })
+        .then((response) => response.data.body)
+        .catch((error) => {
+            const { data } = error.response;
 
-                const response = JSON.parse(body);
+            console.error(`[REMOVE DB ERROR] ${JSON.stringify(data)}`);
 
-                return resolve(response.body);
-            },
-        );
-    });
+            throw errors.error(400);
+        });
 }
 
 function CreateRemoteDB(dbUrl) {
-    function list(table, query, join) {
-        return req({ method: 'GET', url: `${dbUrl}/${table}` });
+    function list(table, query) {
+        return req({ method: 'GET', url: `${dbUrl}/${table}`, query });
     }
 
     return {
