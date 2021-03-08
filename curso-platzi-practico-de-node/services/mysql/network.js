@@ -9,8 +9,10 @@ const router = express.Router();
 
 router.get('/:table', (req, res) => {
     const { table } = req.params;
+    const { join, ...restQuery } = req.query;
+    const joinObject = join ? JSON.parse(join) : null;
 
-    Store.list(table, req.query)
+    Store.list(table, restQuery, joinObject)
         .then((data) => response.success(req, res, data, 200))
         .catch(catchControllerError(req, res, `[GET][MYSQL/${table}]`));
 });
@@ -52,7 +54,9 @@ router.delete('/:table/:id', (req, res) => {
 
     Store.remove(table, id)
         .then(() => response.success(req, res, null, 204))
-        .catch(catchControllerError(req, res, `[DELETE][MYSQL/${table}/${id}]`));
+        .catch(
+            catchControllerError(req, res, `[DELETE][MYSQL/${table}/${id}]`),
+        );
 });
 
 module.exports = router;

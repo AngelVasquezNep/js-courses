@@ -22,8 +22,15 @@ function req({ method, url, body, query }) {
 }
 
 function CreateRemoteDB(dbUrl) {
-    function list(table, query) {
-        return req({ method: 'GET', url: `${dbUrl}/${table}`, query });
+    function list(table, query, join) {
+        return req({
+            method: 'GET',
+            url: `${dbUrl}/${table}`,
+            query: {
+                ...query,
+                join,
+            },
+        });
     }
 
     return {
