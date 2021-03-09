@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(requestsLogger);
+app.use(requestsLogger("MYSQL"));
 
 app.use(router);
 app.use(errors);

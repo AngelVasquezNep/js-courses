@@ -14,7 +14,7 @@ app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(requestsLogger);
+app.use(requestsLogger("API"));
 
 expressJSDocSwagger(app)(SWAGGER_CONFIG);
 

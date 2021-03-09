@@ -1,13 +1,15 @@
-const utils = require("../../utils");
+const utils = require('../../utils');
 
-function requestsLogger(req, res, next) {
-    const { method, originalUrl } = req;
+function requestsLogger(loggerType) {
+    return function (req, res, next) {
+        const { method, originalUrl } = req;
 
-    const date = utils.time.UTCFormatedDate();
+        const date = utils.time.UTCFormatedDate();
 
-    console.info(`[${method}][${date}] ${originalUrl}`);
+        console.info(`[${loggerType}][${method}][${date}] ${originalUrl}`);
 
-    next();
+        next();
+    };
 }
 
 module.exports = requestsLogger;
