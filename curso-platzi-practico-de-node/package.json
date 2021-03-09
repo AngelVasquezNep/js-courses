@@ -4,8 +4,13 @@
   "description": "A backend to post application",
   "main": "api/index.js",
   "scripts": {
-    "dev": "env-cmd -f ./.env nodemon ./api",
-    "dev:mysql": "env-cmd -f ./.env nodemon ./services/mysql"
+    "dev:api": "env-cmd -f ./.env nodemon ./api",
+    "dev:mysql": "env-cmd -f ./.env nodemon ./services/mysql",
+
+    "dev:logs": "pm2 logs",
+    "dev:stop": "pm2 stop api mysql",
+    "dev:status": "pm2 status",
+    "dev:start": "env-cmd -f ./.env pm2 start ecosystem.config.js && pm2 logs"
   },
   "author": "Angelito <angel.vasquez.unam@gmail.com> (https://github.com/AngelVasquezNep)",
   "license": "MIT",
@@ -16,7 +21,8 @@
     "express": "^4.17.1",
     "express-jsdoc-swagger": "^1.3.0",
     "jsonwebtoken": "^8.5.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "pm2": "^4.5.5"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
