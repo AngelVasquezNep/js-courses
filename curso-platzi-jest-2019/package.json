@@ -1,0 +1,21 @@
+{
+  "name": "curso-platzi-jest-2019",
+  "version": "0.1.0",
+  "description": "Test with JEST",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "author": "Angelito <angel.vasquez.unam@gmail.com> (https://github.com/AngelVasquezNep)",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
