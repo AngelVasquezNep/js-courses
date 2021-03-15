@@ -4,8 +4,8 @@
   "description": "Test with JEST",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test": "jest --verbose",
+    "test:coverage": "jest --verbose --coverage"
   },
   "author": "Angelito <angel.vasquez.unam@gmail.com> (https://github.com/AngelVasquezNep)",
   "license": "MIT",

@@ -13,3 +13,9 @@ This course commits are under `platzi-jest-2019` tag, you can look for this git 
 ```
 git log --grep='platzi-jest-2019'
 ```
+
+## Run single tests
+
+```
+yarn run test <path_to_test.test.js>
+```
