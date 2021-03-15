@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshots Rick has right surname 1`] = `
+Object {
+  "gender": "Male",
+  "id": 1,
+  "name": "Rick Sanchez",
+  "species": "Human",
+  "status": "Alive",
+  "type": "",
+}
+`;
