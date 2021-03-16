@@ -7,14 +7,22 @@ import Hello from "../src/components/Hello";
 
 Enzyme.configure({ adapter: new Adapter() });
 
+const data = { title: "Hi" };
+
 describe("Hello Component", () => {
   test("Hello mounts", () => {
-    const data = { title: "Hi" };
-
     const wrapper = shallow(<Hello title={data.title} />);
 
     const h1 = wrapper.find("h1");
 
     expect(h1.text()).toBe(data.title);
+  });
+
+  test("Hello snapshot", () => {
+    const wrapper = shallow(<Hello title={data.title} />);
+
+    const h1 = wrapper.find("h1");
+
+    expect(h1.html()).toMatchSnapshot();
   });
 });
