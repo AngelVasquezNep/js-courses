@@ -10,6 +10,7 @@ function stronger(strings, ...values) {
   for (index in strings) {
     const strongedMessage =
       (values[index] && `<strong>${values[index]}</strong>`) || "";
+
     newMessage += `${strings[index]}${strongedMessage}`;
   }
 

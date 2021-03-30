@@ -17,13 +17,27 @@ const TAGS = [
   "img",
 ];
 
+function buildStyles(styles, builders, props) {
+  let newStyles = "";
+
+  for (let index in styles) {
+    const builder = builders[index];
+
+    const newStyle = builder ? builder(props) : "";
+
+    newStyles += `${styles[index]}${newStyle}`;
+  }
+
+  return newStyles;
+}
+
 const styled = {};
 
-const component = (tag) => (styles) => (props, content) =>
+const component = (tag) => (styles, ...builders) => (props, content) =>
   createElement(
     tag,
     {
-      style: styles,
+      style: buildStyles(styles, builders, props),
       ...props,
     },
     content

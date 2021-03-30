@@ -1,16 +1,18 @@
 import { Component, createElement } from "../lib/react/index.js";
 import styled from "../lib/styled-components/index.js";
 
+import theme from './theme.js'
+
 const UserStyled = styled.div`
-  background-image: linear-gradient(
-    to bottom,
-    #f9f9f9 0%,
-    #f9f9f9 130px,
-    rgba(0, 0, 0, 0.15) 130px,
-    rgba(0, 0, 0, 0.15) 131px,
-    white 131px,
-    white 100%
-  );
+background-image: linear-gradient(
+  to bottom,
+  ${({ primaryColor }) => primaryColor} 0%,
+  ${({ primaryColor }) => primaryColor} 130px,
+  ${({ tertiaryColor }) => tertiaryColor} 130px,
+  ${({ tertiaryColor }) => tertiaryColor} 131px,
+  ${({ secondaryColor }) => secondaryColor} 131px,
+  ${({ secondaryColor}) => secondaryColor} 100%);
+  color: ${({ fontColor }) => fontColor};
   text-align: center;
   overflow: hidden;
   padding: 20px;
@@ -30,29 +32,40 @@ const UserImageStyled = styled.img`
 
 class User extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      mode: 'light'
-    }
+      mode: "light",
+    };
   }
 
   componentDidMount() {
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    console.log(media)
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+    this.setMode(media);
+
+    media.addEventListener("change", this.setMode);
   }
+
+  setMode = (event) => {
+    const mode = event.matches ? "dark" : "light";
+
+    this.setState({ mode });
+  };
 
   render() {
     const { name, avatar } = this.props;
+    const colors = theme[this.state.mode]
 
     return UserStyled({
+      ...colors,
       children: [
         UserImageStyled({
-          src: avatar
+          src: avatar,
         }),
-        createElement('h2', null, name)
+        createElement("h2", null, name),
       ]
-    })
+    });
   }
 }
 
