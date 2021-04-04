@@ -15,6 +15,11 @@ const TAGS = [
   "small",
   "picture",
   "img",
+  "header",
+  "form",
+  "input",
+  "select",
+  "section",
 ];
 
 function buildStyles(styles, builders, props) {
