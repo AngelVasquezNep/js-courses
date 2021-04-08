@@ -13,25 +13,46 @@ describe("<ButtonColor />", () => {
   test("Btton turns blue when clicked", () => {
     const { getByRole } = render(<ButtonColor />);
     const colorButton = getByRole("button", { name: "Change to blue" });
-    fireEvent.click(colorButton)
+    fireEvent.click(colorButton);
 
-    expect(colorButton).toHaveStyle({ backgroundColor: 'blue' })
-    expect(colorButton.textContent).toBe('Change to red')
+    expect(colorButton).toHaveStyle({ backgroundColor: "blue" });
+    expect(colorButton.textContent).toBe("Change to red");
   });
 
-  test('Disabled check box works', () => {
+  test("Disabled check box works", () => {
     const { getByRole } = render(<ButtonColor />);
     const colorButton = getByRole("button", { name: "Change to blue" });
 
     // Button starts enabled
-    expect(colorButton).toBeEnabled()
+    expect(colorButton).toBeEnabled();
 
     // Check that the checkboxs start out unchecked
-    const checkbox = getByRole("checkbox", { name: 'Disabled' });
-    expect(checkbox).not.toBeChecked()
+    const checkbox = getByRole("checkbox", { name: "Disabled" });
+    expect(checkbox).not.toBeChecked();
 
     // Click checkbox turn button disabled
-    fireEvent.click(checkbox)
-    expect(colorButton).toBeDisabled()
-  })
+    fireEvent.click(checkbox);
+    expect(colorButton).toBeDisabled();
+  });
+
+  test("Disabled button has gray color", () => {
+    const { getByRole } = render(<ButtonColor />);
+    const colorButton = getByRole("button", { name: "Change to blue" });
+    const checkbox = getByRole("checkbox", { name: "Disabled" });
+
+    // Button starts red
+    expect(colorButton).toHaveStyle({ backgroundColor: "red" });
+
+    // Checkbox disables button and makes it gray
+    fireEvent.click(checkbox);
+    expect(colorButton).toHaveStyle({ backgroundColor: "gray" });
+
+    // Doesn't matter if button is clicked, it is disabled and stays gray
+    fireEvent.click(colorButton);
+    expect(colorButton).toHaveStyle({ backgroundColor: "gray" });
+
+    // Button is enabled and doesn't have gray background 
+    fireEvent.click(checkbox);
+    expect(colorButton).not.toHaveStyle({ backgroundColor: "gray" });
+  });
 });
