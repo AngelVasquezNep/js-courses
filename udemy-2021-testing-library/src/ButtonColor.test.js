@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 
 import ButtonColor from "./ButtonColor";
 
-describe("Button change color test", () => {
+describe("<ButtonColor />", () => {
   test("Button has correct initial color", () => {
     const { getByRole } = render(<ButtonColor />);
     const colorButton = getByRole("button", { name: "Change to blue" });
@@ -19,7 +19,19 @@ describe("Button change color test", () => {
     expect(colorButton.textContent).toBe('Change to red')
   });
 
-  // test('Btton turns blue when clicked', () => {
+  test('Disabled check box works', () => {
+    const { getByRole } = render(<ButtonColor />);
+    const colorButton = getByRole("button", { name: "Change to blue" });
 
-  // })
+    // Button starts enabled
+    expect(colorButton).toBeEnabled()
+
+    // Check that the checkboxs start out unchecked
+    const checkbox = getByRole("checkbox", { name: 'Disabled' });
+    expect(checkbox).not.toBeChecked()
+
+    // Click checkbox turn button disabled
+    fireEvent.click(checkbox)
+    expect(colorButton).toBeDisabled()
+  })
 });
