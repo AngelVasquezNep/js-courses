@@ -2,6 +2,8 @@
  * Recreate redux
  */
 
+import logger from "./logger.js";
+
 const createStore = (reducer, initialState) => {
   let state = initialState;
   let prevState = initialState;
@@ -13,6 +15,8 @@ const createStore = (reducer, initialState) => {
   const dispatch = (action) => {
     prevState = { ...state };
     state = reducer(state, action);
+
+    logger({ action, prevState, state })
 
     listeners.forEach((listener) => listener(state, prevState));
   };

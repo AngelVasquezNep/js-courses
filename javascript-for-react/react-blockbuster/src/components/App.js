@@ -1,15 +1,13 @@
 import { Component } from "../../../React/lib/react/index.js";
 import styled from "../../../React/lib/styled-components/index.js";
 
-import movies from '../movies.js'
 
 import Header from "./Header.js";
 import Actions from "./Actions.js";
 import Search from "./Search.js";
-import MovieList from './MovieList.js'
+import MovieList from "./MovieList.js";
 
 const AppStyled = styled.div``;
-
 
 class App extends Component {
   render() {
@@ -17,11 +15,9 @@ class App extends Component {
       children: [
         new Header(),
         new Actions({
-          children: [
-            new Search()
-          ],
+          children: [new Search()],
         }),
-        new MovieList({ movies })
+        new MovieList({}),
       ],
     });
   }

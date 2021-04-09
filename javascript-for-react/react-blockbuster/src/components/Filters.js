@@ -1,10 +1,13 @@
 import { Component, createElement } from "../../../React/lib/react/index.js";
 import styled from "../../../React/lib/styled-components/index.js";
 
+import store from "../store/index.js";
+import { SET_FILTER } from "../store/actions.js";
+
 const filters = [
   { value: "all", label: "Todas" },
-  { value: "most-valued", label: "Más valoradas" },
-  { value: "least-valued", label: "Menos valoradas" },
+  { value: "popular", label: "Más valoradas" },
+  { value: "notPopular", label: "Menos valoradas" },
 ];
 
 const options = filters.map(({ label, value }) =>
@@ -22,8 +25,13 @@ const Select = styled.select`
 `;
 
 class Filters extends Component {
+  setFilter = (filter) => {
+    store.dispatch({ type: SET_FILTER, filter })
+  }
+
   render() {
     return Select({
+      onChange: (e) => this.setFilter(e.target.value),
       children: options,
     });
   }
