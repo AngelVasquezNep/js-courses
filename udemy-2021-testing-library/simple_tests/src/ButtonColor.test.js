@@ -30,7 +30,7 @@ describe("<ButtonColor />", () => {
     const checkbox = getByRole("checkbox", { name: "Disabled" });
     expect(checkbox).not.toBeChecked();
 
-    // Click checkbox turn button disabled
+    // Click checkbox turns button disabled
     fireEvent.click(checkbox);
     expect(colorButton).toBeDisabled();
   });
