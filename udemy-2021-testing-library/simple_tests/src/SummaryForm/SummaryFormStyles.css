@@ -1,0 +1,9 @@
+.PopOver {
+  position: relative;
+}
+
+.PopOver .PopOver-Content {
+  position: absolute;
+}
+
+

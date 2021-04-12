@@ -1,4 +1,5 @@
 import { render, fireEvent } from "@testing-library/react";
+import userEvent from '@testing-library/user-event';
 
 import SummaryForm from "./index";
 
@@ -27,4 +28,17 @@ describe("<SummaryForm /> | Accept terms and conditions", () => {
     fireEvent.click(submit);
     expect(handleSubmit).toBeCalledTimes(1);
   });
+
+  test("Terms and conditions PopOver", () => {
+    const { getByRole, queryByRole } = render(<SummaryForm />)
+    const popOver = getByRole('button', { name: "pop-over" });
+    const popOverContent = queryByRole('region', { name: "popOverContent" });
+
+    expect(popOverContent).not.toBeInTheDocument()
+    userEvent.hover(popOver)
+    expect(popOverContent).toBeInTheDocument()
+  
+
+    expect(true).toBeTruthy()
+  })
 });
