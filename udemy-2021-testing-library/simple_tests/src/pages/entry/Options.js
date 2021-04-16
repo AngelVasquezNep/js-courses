@@ -3,6 +3,7 @@ import axios from "axios";
 
 import ScoopOption from "./ScoopOption";
 import ToppingOption from "./ToppingOption";
+import AlertBanner from "./AlertBanner";
 
 const OptionTypes = {
   scoops: ScoopOption,
@@ -11,6 +12,7 @@ const OptionTypes = {
 
 const Options = ({ optionType }) => {
   const [options, setOptions] = useState([]);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -21,13 +23,17 @@ const Options = ({ optionType }) => {
       })
       .then((response) => setOptions(response.data))
       .catch((error) => {
-        // TODO: handle error response
+        setError(true)
       });
 
     return () => {
       source.cancel();
     };
   }, [optionType]);
+
+  if (error) {
+    return <AlertBanner />
+  }
 
   const OptionComponent = OptionTypes[optionType];
 
