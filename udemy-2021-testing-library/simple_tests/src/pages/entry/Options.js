@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import ScoopOption from "./ScoopOption";
+import ToppingOption from "./ToppingOption";
 
 const OptionTypes = {
   scoops: ScoopOption,
+  toppings: ToppingOption,
 };
 
 const Options = ({ optionType }) => {
