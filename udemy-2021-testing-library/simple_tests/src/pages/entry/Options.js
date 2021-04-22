@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import axios from "axios";
 
 import ScoopOption from "./ScoopOption";
 import ToppingOption from "./ToppingOption";
 import AlertBanner from "./AlertBanner";
+import { formatCurrency, PRICES, useOrderDetails } from "../../context/OrderDetails";
 
 const OptionTypes = {
   scoops: ScoopOption,
@@ -13,6 +14,7 @@ const OptionTypes = {
 const Options = ({ optionType }) => {
   const [options, setOptions] = useState([]);
   const [error, setError] = useState(false);
+  const [orderDetails, updateItemCount] = useOrderDetails();
 
   useEffect(() => {
     const source = axios.CancelToken.source();
@@ -23,7 +25,7 @@ const Options = ({ optionType }) => {
       })
       .then((response) => setOptions(response.data))
       .catch((error) => {
-        setError(true)
+        setError(true);
       });
 
     return () => {
@@ -32,18 +34,32 @@ const Options = ({ optionType }) => {
   }, [optionType]);
 
   if (error) {
-    return <AlertBanner />
+    return <AlertBanner />;
   }
 
   const OptionComponent = OptionTypes[optionType];
+  const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
 
-  return options.map((option) => (
-    <OptionComponent
-      key={option.name}
-      name={option.name}
-      imagePath={option.imagePath}
-    />
-  ));
+  return (
+    <Fragment>
+      <h2>{title}</h2>
+      <p>{PRICES[optionType]} each</p>
+      <p>
+        {title} total: {orderDetails.totals[optionType]}
+      </p>
+
+      {options.map((option) => (
+        <OptionComponent
+          key={option.name}
+          name={option.name}
+          imagePath={option.imagePath}
+          updateItemCount={(itemName, newItemCount) =>
+            updateItemCount(itemName, newItemCount, optionType)
+          }
+        />
+      ))}
+    </Fragment>
+  );
 };
 
 export default Options;

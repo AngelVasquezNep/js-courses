@@ -1,5 +1,6 @@
 import { render, waitFor } from "@testing-library/react";
 import { rest } from "msw";
+import { OrderDetailsProvider } from "../../context/OrderDetails";
 
 import { server } from "../../mocks/server";
 import OrderEntry from "./OrderEntry";
@@ -15,7 +16,9 @@ describe("<OrderEntry />", () => {
       })
     );
 
-    const { findAllByRole } = render(<OrderEntry />);
+    const { findAllByRole } = render(<OrderEntry />, {
+      wrapper: OrderDetailsProvider,
+    });
 
     await waitFor(async () => {
       const alert = await findAllByRole("alert", { name: "Alert" });
